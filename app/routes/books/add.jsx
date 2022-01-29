@@ -19,12 +19,12 @@ export default function AddBookRoute() {
       <form method="POST">
         <div>
           <label type="text" name="title">
-            Title: <input type="text" name="title" />
+            Title: <input type="text" name="title" required />
           </label>
         </div>
         <div>
           <label type="text" name="author">
-            Author: <input type="text" name="author" />
+            Author: <input type="text" name="author" required />
           </label>
         </div>
         <div>

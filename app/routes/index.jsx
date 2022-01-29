@@ -6,10 +6,12 @@ export const links = () => {
 };
 
 const IndexRoute = () => (
-  <div className="container mt-5">
-    <h1>Donde Esta La Biblioteca?</h1>
-    <Link to="/books">My Books</Link>
-  </div>
+  <>
+    <div className="container mt-5">
+      <h1>Donde Esta La Biblioteca?</h1>
+      <Link to="/books">My Books</Link>
+    </div>
+  </>
 );
 
 export default IndexRoute;

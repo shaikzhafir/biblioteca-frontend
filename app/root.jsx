@@ -1,6 +1,8 @@
 import { LiveReload, Outlet, Links } from "remix";
 import boostrapStyles from "bootstrap/dist/css/bootstrap.css";
 import globalStylesUrl from "./styles/globals.css";
+import navbarStyles from "./components/Navbar.css";
+import Navbar from "./components/Navbar";
 
 export const links = () => {
   return [
@@ -11,6 +13,10 @@ export const links = () => {
     {
       rel: "stylesheet",
       href: globalStylesUrl,
+    },
+    {
+      rel: "stylesheet",
+      href: navbarStyles,
     },
   ];
 };
@@ -27,13 +33,11 @@ export default function App() {
           href="https://fonts.gstatic.com"
           crossOrigin="true"
         ></link>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Martel+Sans&display=swap"
-          rel="stylesheet"
-        ></link>
+
         <Links />
       </head>
       <body>
+        <Navbar />
         <Outlet />
         {process.env.NODE_ENV === "development" ? <LiveReload /> : null}
       </body>
