@@ -1,13 +1,31 @@
-import { Link } from "react-router-dom";
-import stylesUrl from "./Navbar.css";
+// this is for layout only
+
+import { Link, useSearchParams } from "react-router-dom";
+import stylesUrl from "../components/Navbar.css";
 import { getUserId } from "~/utils/session.server";
-import { useLoaderData } from "remix";
+import { useLoaderData, Outlet } from "remix";
+import { logout } from "~/utils/session.server";
 
 export const links = () => {
   return [{ rel: "stylesheet", href: stylesUrl }];
 };
 
-const Navbar = ({ userId }) => {
+export let action = async ({ request }) => {
+  return logout(request);
+};
+
+export let loader = async ({ request }) => {
+  console.log(`request from nav`);
+  let userId = await getUserId(request);
+  const data = {
+    userId,
+  };
+  return data;
+};
+
+const BooksLayout = () => {
+  const [searchParams] = useSearchParams();
+  const data = useLoaderData();
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light">
@@ -16,7 +34,7 @@ const Navbar = ({ userId }) => {
             <Link className="navbar-brand" to="/">
               La Biblioteca
             </Link>
-            {userId ? (
+            {data.userId ? (
               <ul className="navbar-custom my-3">
                 <li className="nav-item">
                   <Link className="nav-link" to="/books/list">
@@ -34,10 +52,17 @@ const Navbar = ({ userId }) => {
 
           <ul className="navbar-custom my-3 navbar-nav-scroll">
             <li className="nav-item">
-              {userId ? (
-                <Link className="nav-link" to="/logout">
-                  Logout
-                </Link>
+              {data.userId ? (
+                <form method="post" action="/logout">
+                  <input
+                    type="hidden"
+                    name="redirectTo"
+                    value={searchParams.get("redirectTo") ?? undefined}
+                  />
+                  <button className="nav-link" type="submit">
+                    Logout
+                  </button>
+                </form>
               ) : (
                 <Link className="nav-link" to="/login">
                   Login
@@ -47,8 +72,10 @@ const Navbar = ({ userId }) => {
           </ul>
         </div>
       </nav>
+
+      <Outlet />
     </>
   );
 };
 
-export default Navbar;
+export default BooksLayout;

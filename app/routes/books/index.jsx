@@ -20,9 +20,9 @@ export default function BooksRoute() {
           <li key={book.id}>{book.title}</li>
         ))}
       </ul>
-      <Link to="./add">Add a book</Link>
+      {/* <Link to="./add">Add a book</Link>
       <br></br>
-      <Link to="./list">List of books</Link>
+      <Link to="./list">List of books</Link> */}
     </div>
   );
 }

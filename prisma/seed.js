@@ -7,6 +7,11 @@ async function seed() {
       return db.book.create({ data: book });
     })
   );
+  await Promise.all(
+    getAllUsers().map((user) => {
+      return db.user.create({ data: user });
+    })
+  );
 }
 
 seed();
@@ -24,6 +29,16 @@ function getAllBooks() {
     {
       title: "Heaven",
       author: "Mieko Kawakami",
+    },
+  ];
+}
+
+function getAllUsers() {
+  return [
+    {
+      username: "shaik",
+      passwordHash:
+        "$2b$10$K7L1OJ45/4Y2nIvhRVpCe.FSmhDdWoXehVzJptJ/op0lSsvqNu/1u",
     },
   ];
 }
